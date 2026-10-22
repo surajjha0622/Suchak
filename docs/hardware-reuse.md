@@ -21,9 +21,10 @@ Source in CrashLink: `hardware/pcb/RNode.epro2`, `SCH_RNode.pdf` and the PNG ren
 | **Radio is an RFM95W (SX1276)**, deck says **SX1262** | Different chip, different pinout (SX1262 needs BUSY and DIO1), different driver | Replace U7 with an SX1262 module and re-route the radio block |
 | **915 MHz module** | Unlicensed LoRa in India is 865–867 MHz; a 915 MHz-matched module will have poor performance there | Pick an 865–867 MHz-capable SX1262 module |
 | **No RTC** | Deck uses DS3231 for timestamps and scheduled wake | Add DS3231 on I²C (IO21/IO22 are free on the ESP32) |
-| **No sensor connectors** | Spare ESP32 pads are not broken out; the module is soldered straight to the board | Add headers for rain-gauge pulse input, analog/digital water-level input, I²C |
+| **No sensor connectors** | Spare ESP32 pads are not broken out; the module is soldered straight to the board | Add headers for rain-gauge pulse input, analog/digital water-level input, and I²C (DS3231 + ADXL345 vibration sensor) |
 | **No solar charger** | Deck specifies solar + LiFePO₄ | Add a LiFePO₄-capable solar charger / MPPT stage |
 | **Deep-sleep current unknown** | Always-on USB-UART chip, LEDs and converter quiescent draw | Measure; consider gating CP2102N and LED power |
+| **No camera or siren path** | Deck has camera nodes and local sirens | Camera node needs its own compute platform; siren needs a driver stage at the gateway (not on this board) |
 | **Silkscreen** says *Relay Node / CrashLink_v1.0* | Confusing for a different project | Re-label |
 
 The existing board is still good for **bench bring-up** of the LoRa link and ESP32 firmware while Rev B is designed.
